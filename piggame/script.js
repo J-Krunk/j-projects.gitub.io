@@ -1,18 +1,18 @@
-'use strict';
+"use strict";
 
-const diceImg = document.querySelector('.dice');
-const btnHold = document.querySelector('.btn--hold');
-const btnRollDice = document.querySelector('.btn--roll');
-const bntNewGame = document.querySelector('.btn--new');
-const playerName0 = document.querySelector('#name--0');
-const playerName1 = document.querySelector('#name--1');
+const diceImg = document.querySelector(".dice");
+const btnHold = document.querySelector(".btn--hold");
+const btnRollDice = document.querySelector(".btn--roll");
+const bntNewGame = document.querySelector(".btn--new");
+const playerName0 = document.querySelector("#name--0");
+const playerName1 = document.querySelector("#name--1");
 
 let score = [0, 0];
 let current = [0, 0];
 let playturn = 0;
 let endgame = false;
 let locked = false;
-diceImg.classList.add('hidden');
+diceImg.classList.add("hidden");
 
 const refreshScreen = function (dice) {
   if (dice) diceImg.src = `dice-${dice}.png`;
@@ -22,16 +22,16 @@ const refreshScreen = function (dice) {
   }
   document
     .querySelector(`.player--${playturn}`)
-    .classList.add('player--active');
+    .classList.add("player--active");
   document
     .querySelector(`.player--${playturn === 0 ? 1 : 0}`)
-    .classList.remove('player--active');
+    .classList.remove("player--active");
 };
 
 const fnRollDice = function () {
   if (endgame || locked) return;
   const diceRoll = Math.trunc(Math.random() * 6 + 1);
-  if (diceImg.classList.contains('hidden')) diceImg.classList.remove('hidden');
+  if (diceImg.classList.contains("hidden")) diceImg.classList.remove("hidden");
   if (diceRoll === 1) {
     current[playturn] = 0;
     swapPlayer();
@@ -46,10 +46,10 @@ const fnHold = function () {
   score[playturn] += current[playturn];
   current[playturn] = 0;
   refreshScreen();
-  if (score[playturn] >= 40) {
+  if (score[playturn] >= 100) {
     document
       .querySelector(`.player--${playturn}`)
-      .classList.add('player--winner');
+      .classList.add("player--winner");
     endgame = true;
   }
   if (!endgame) {
@@ -60,7 +60,7 @@ const fnHold = function () {
 const fnReset = function () {
   document
     .querySelector(`.player--${playturn}`)
-    .classList.remove('player--winner');
+    .classList.remove("player--winner");
   score = [0, 0];
   current = [0, 0];
   playturn = 0;
@@ -78,19 +78,19 @@ const swapPlayer = function () {
 };
 const fnLock = function () {
   locked = true;
-  diceImg.classList.toggle('dice--locked');
+  diceImg.classList.toggle("dice--locked");
 };
 const fnUnlock = function () {
   locked = false;
-  diceImg.classList.toggle('dice--locked');
+  diceImg.classList.toggle("dice--locked");
 };
 refreshScreen();
-btnRollDice.addEventListener('click', fnRollDice);
-btnHold.addEventListener('click', fnHold);
-bntNewGame.addEventListener('click', fnReset);
-playerName0.addEventListener('click', function () {
-  playerName0.textContent = prompt('Give a new name');
+btnRollDice.addEventListener("click", fnRollDice);
+btnHold.addEventListener("click", fnHold);
+bntNewGame.addEventListener("click", fnReset);
+playerName0.addEventListener("click", function () {
+  playerName0.textContent = prompt("Give a new name");
 });
-playerName1.addEventListener('click', function () {
-  playerName1.textContent = prompt('Give a new name');
+playerName1.addEventListener("click", function () {
+  playerName1.textContent = prompt("Give a new name");
 });
